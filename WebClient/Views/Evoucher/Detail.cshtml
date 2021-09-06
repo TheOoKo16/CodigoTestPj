@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Data.Models.evoucher
+<div class="container-fluid" id="container-wrapper">
+    <div class="card mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Detail</h6>
+        </div>
+        <div class="card-body">
+            <form id="evoucherform">
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputEmail3" name="Title" value="@Model.Title" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Expire Date</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputEmail3" value="@Model.ExpiryDate" disabled>
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Image</label>
+                    <div class="col-sm-9">
+                        @if (Model.Image != null)
+                        {
+                            <img src="@Model.PhotoUrl" style="width:150px;height:150px;object-fit:cover;" id="imagePreview" />
+
+                        }
+                        else
+                        {
+                            <img src="" style="width:150px;height:150px;object-fit:cover;" id="imagePreview" />
+
+                        }
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Amount</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputEmail3" value="@Model.Amount" disabled>
+
+                    </div>
+                </div>
+                @*<div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Payment Method</label>
+                    <div class="col-sm-9">
+
+                        <input type="text" class="form-control" id="inputEmail3" value="@Model.PaymentMethod" disabled>
+
+                    </div>
+                </div>*@
+                @*<div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Discount</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="inputEmail3" name="Discount" value="@Model.Discount" disabled>
+                    </div>
+                </div>*@
+
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Quantity</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputEmail3" value="@Model.Quantity" disabled>
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">BuyType</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputEmail3" value="@Model.BuyType" disabled>
+
+                    </div>
+                </div>
+                <div class="form-group row" id="limit">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Limit</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="inputEmail3" name="Qtylimit" value="@Model.Qtylimit" disabled>
+                    </div>
+                </div>
+                @*<div class="form-group row" id="limit" style="display:none">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">MaxLimit</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="inputEmail3" name="Maxlimit" value="@Model.Maxlimit" disabled>
+
+                    </div>
+                </div>*@
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Description" disabled>@Model.Description</textarea>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+
+        });
+     
+
+        </script>
+}

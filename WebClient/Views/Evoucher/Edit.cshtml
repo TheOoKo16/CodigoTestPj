@@ -1,0 +1,299 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Data.Models.evoucher
+<div class="container-fluid" id="container-wrapper">
+    <div class="card mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Edit Evoucher</h6>
+        </div>
+        <div class="card-body">
+            <form id="evoucherform">
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputEmail3" name="Title" value="@Model.Title" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Expire Date</label>
+                    <div class="col-sm-9">
+                        <div class="form-group" id="simple-date2">
+
+                            <div class="input-group date">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                </div>
+                                @if (Model.ExpiryDate != null)
+                                {<input type="text" class="form-control" id="oneYearView" name="ExpiryDate" value="@Model.ExpiryDate.Value.ToString("dd/MM/yyyy")">
+
+
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control" id="oneYearView" name="ExpiryDate">
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Image</label>
+                    <div class="col-sm-9">
+                        @if (Model.Image != null)
+                        {
+                            <img src="@Model.PhotoUrl" style="width:150px;height:150px;object-fit:cover;" id="imagePreview" />
+
+                        }
+                        else
+                        {
+                            <img src="" style="width:150px;height:150px;object-fit:cover;" id="imagePreview" />
+
+                        }
+
+                        <input type="file" id="filedatacar" class="form-control" style="margin-top:10px;border-radius:20px" name="" accept="image/jpeg, image/png" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
+                        <br />
+                        <input type="hidden" id="photo_evoucher" name="Image" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Amount</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="inputEmail3" name="Amount" value="@Model.Amount" required>
+                    </div>
+                </div>
+                @*<div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Payment Method</label>
+                    <div class="col-sm-9">
+
+                       
+
+                        @{
+                            var color = new List<SelectListItem>()
+                                                                                                                                {
+                                    new SelectListItem { Value="",Text="Select Payment" },
+                                    new SelectListItem { Value="Aya",Text="Aya" },
+                                    new SelectListItem { Value="CB",Text="CB" },
+                                    new SelectListItem { Value="Visa",Text="Visa" },
+
+
+
+                                };
+
+                        }
+                        @Html.DropDownListFor(a => a.PaymentMethod, color, new { @class = "form-control mb-3", name = "Select", require = "require" })
+
+
+                    </div>
+                </div>*@
+                @*<div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Discount</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="inputEmail3" name="Discount" value="@Model.Discount">
+                    </div>
+                </div>*@
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Quantity</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="inputEmail3" name="Quantity" value="@Model.Quantity">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">BuyType</label>
+                    <div class="col-sm-9">
+                        @{
+                            var buytype = new List<SelectListItem>()
+                                                                                                                                                {
+                                    new SelectListItem { Value="",Text="Select Type" },
+                                    new SelectListItem { Value="MySelf",Text="MySelf" },
+                                    new SelectListItem { Value="Gift",Text="Gift" },
+
+
+
+
+                                };
+
+                        }
+                        @Html.DropDownListFor(a => a.BuyType, buytype, new { @class = "form-control mb-3", id = "buytype", name = "Select", require = "require" })
+
+
+                    </div>
+                </div>
+               
+                <div class="form-group row" id="limit">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Qty Limit</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="inputEmail3" name="Qtylimit" value="@Model.Qtylimit">
+                    </div>
+                </div>
+                @*<div class="form-group row" id="limit" style="display:none">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">MaxLimit</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="inputEmail3" name="Maxlimit" value="@Model.Maxlimit">
+
+                    </div>
+                </div>*@
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Description">@Model.Description</textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+
+                @Html.HiddenFor(a => a.ID)
+                @Html.HiddenFor(a => a.IsActive)
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <link href="~/Content/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+
+    <link href="~/Content/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    <script src="~/Content/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#simple-date2 .input-group.date').datepicker({
+                startView: 1,
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                todayHighlight: true,
+                todayBtn: 'linked',
+
+            });
+
+
+
+        });
+
+        //$("#buytype").on('change', function () {
+            
+        //    var buytype = $("#buytype :selected").text();
+          
+        //    if (buytype == "Gift") {
+        //        $("#limit").show();
+        //    }
+        //    else {
+        //        $("#limit").hide();
+        //    }
+        //})
+        function maxwidthheight(width, height) {
+            var MAX_WIDTH = 1200;  // to remove maximum width height
+            var MAX_HEIGHT = 1200;
+            var width = width;
+            var height = height;
+
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                }
+            } else {
+                if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT;
+                }
+            }
+            var a = { width: width, height: height };
+            return a
+        }
+
+        function dataURItoBlob(dataURI) {
+            var binary = atob(dataURI.split(',')[1]);
+            var array = [];
+            for (var i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            return new Blob([new Uint8Array(array)], { type: 'image/png' });
+        }
+        function ShowImagePreview(imageUploader, previewImage) {
+
+            if (imageUploader.files && imageUploader.files[0]) {
+                var files = $("#filedatacar").get(0).files;
+                var file = files[0];
+
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(previewImage).attr('src', e.target.result);
+                    img.src = e.target.result;
+                    var mime_type = "image/jpeg";
+                    if (typeof output_format !== "undefined" && output_format == "png") {
+                        mime_type = "image/png";
+                    }
+                    var canvas = document.createElement("canvas");
+                    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                        alert('Photo is uploading...');
+                    }
+                    //set max height width
+                    var gg = maxwidthheight(img.width, img.height);
+                    width = gg.width;
+                    height = gg.height;
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    var dataurl = canvas.toDataURL(mime_type, 80 / 100);
+                    //document.getElementById('image').src = dataurl;
+                    var blob = dataURItoBlob(dataurl);
+                    console.log("blob" + dataurl);
+
+                    reader.onloadend = function () {
+                        console.log("reader result " + reader.result);
+                        var base64data = reader.result;
+                        // console.log(base64data);
+                        $('#photo_evoucher').val(base64data);
+                    }
+
+                }
+                reader.readAsDataURL(file);
+            }
+
+
+
+        }
+
+
+
+             $("#evoucherform").submit(function (e) {
+            e.preventDefault();
+            
+              $.ajax({
+                cache: false,
+                  url: '@Url.Action("Upsert", "Evoucher")',
+                  type: "Post",
+                  data: $(this).serialize(),
+
+                    beforeSend: function () {
+
+                },
+                success: function (result) {
+                    if (result == "Success") {
+                        location.href = "../Evoucher/Index";
+                    }
+                    else {
+                        alert("fail");
+                    }
+                },
+                complete:function() {
+
+                }
+            })
+        })
+    </script>
+}
+
+
+

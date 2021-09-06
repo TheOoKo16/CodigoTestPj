@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid" id="container-wrapper">
+
+    <div id="div_purchaseList">
+
+    </div>
+    <div id="div_modal">
+
+    </div>
+
+</div>
+<style>
+    #qrvalue div{
+        margin:auto;
+    }
+</style>
+@section scripts{
+
+    <script src="https://kendo.cdn.telerik.com/2019.1.220/js/kendo.all.min.js"></script>
+    <script>
+        var pagesize = 5;
+        var page = 1;
+
+        $(document).ready(function () {
+            initPagingListView();
+            GetList();
+        });
+        function initPagingListView() {
+            $("#div_purchaseList").on("click", ".pagination-bx a", function (e) {
+                $(window).scrollTop(700);
+                //window.scrollTo(300, 200);
+
+                e.preventDefault();
+                var $a = $(this).attr("href");
+                try {
+                    var pageurl = $a.split(/=/);
+                    page = pageurl[1];
+                    if (page == null) {
+                        page = 1;
+                    }
+                }
+                catch (e) {
+                    page = 1;
+                }
+                GetList();
+
+
+            });
+        }
+        function GetList() {
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("purchaselist", "Purchase")',
+                data: { pagesize: pagesize, page: page},
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                    $("#div_purchaseList").empty().append(result);
+
+
+                },
+                complete:function() {
+                    //$(".pagination li").addClass("paginate_button page-item");
+                    //$(".pagination a").addClass("page-link");
+                }
+            })
+        }
+
+        function CheckEvoucher(id) {
+           
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("checkevoucher", "Purchase")',
+                data: { id: id },
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                   
+                    $("#div_modal").empty().append(result);
+
+
+                },
+                complete: function () {
+                    $("#exampleModalCenter").modal('show');
+                   
+                    var promocode = $("#promocode").val();
+                   
+                    $("#qrvalue").kendoQRCode({
+                        value: $("#promocode").val(),
+                        errorCorrection: "M",
+                        size: 120,
+                        
+                    });
+                  
+                }
+            })
+        }
+
+
+        function close() {
+            alert("dd");
+            $("#exampleModalCenter").modal('hide');
+            $(".modal-backdrop").remove();
+        }
+    </script>
+}
